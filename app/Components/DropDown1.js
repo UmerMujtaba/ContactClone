@@ -1,0 +1,94 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
+const data = [
+  {label: 'Mobile', value: '1'},
+  {label: 'Work', value: '2'},
+  {label: 'Home', value: '3'},
+  {label: 'Main', value: '4'},
+  {label: 'Work fax', value: '5'},
+  {label: 'Home fax', value: '6'},
+  {label: 'Pager', value: '7'},
+  {label: 'Other', value: '8'},
+];
+
+const DropdownComponent = () => {
+  const [value, setValue] = useState(null);
+
+  // Custom render function for dropdown items
+  const renderItem = (item, index, isSelected) => {
+    return (
+      <View style={styles.dropdownItem}>
+        <Text style={isSelected ? styles.selectedItemText : styles.itemText}>
+          {console.log(item.label)}
+          {item.label}
+        </Text>
+      </View>
+    );
+  };
+
+  return (
+    <Dropdown
+      style={styles.dropdown}
+      placeholderStyle={styles.placeholderStyle}
+      selectedTextStyle={styles.selectedTextStyle}
+      iconStyle={styles.iconStyle}
+      data={data}
+      maxHeight={200}
+      labelField="label"
+      valueField="value"
+      placeholder="Mobile"
+      value={value}
+      onChange={item => {
+        setValue(item.value);
+      }}
+      
+      renderItem={renderItem} // Pass the custom render function
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  dropdown: {
+    margin: 16,
+    height: 30,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+    color: 'black',
+    width: 95
+  },
+
+  placeholderStyle: {
+    fontSize: 16,
+    color: 'gray',
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    color: 'white',
+    left: 5
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  dropdownItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+  },
+  itemText: {
+    fontSize: 16,
+    color: 'black',
+  },
+  selectedItemText: {
+    fontSize: 16,
+    color: 'white', // Customize the color for selected item
+    fontWeight: 'bold', // Add any other styles for selected item
+  },
+});
+
+export default DropdownComponent;
